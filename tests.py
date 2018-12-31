@@ -1,4 +1,6 @@
 import os
+import sys
+import time
 
 
 def moldura(li, ci, lf, cf, titulo='', shadow=False):
@@ -58,13 +60,62 @@ def go_last_row():
     print("\033[" + str(int(term_rows) - 1) + ";0H ")
 
 
+class marquee:
+    def __init__(self):
+        self.data = ""
+        self.width = 0
+        self.linha = ""
+        self.coluna = ""
+
+    def animate(self):
+        try:
+            while True:
+                sys.stdout.write("\033[?25l")
+                for x in range(0, self.width):
+                    time.sleep(0.1)
+                    msg = "{}{}".format(" " * x, self.data)
+                    sys.stdout.write(f"\033[{self.linha};{self.coluna}H{msg}")
+                    sys.stdout.flush()
+
+                for x in range(self.width, 0, -1):
+                    time.sleep(0.1)
+                    msg = "{}{}".format(" " * x, self.data)
+                    sys.stdout.write(f"\033[{self.linha};{self.coluna}H{msg}")
+                    sys.stdout.flush()
+        except KeyboardInterrupt:
+            sys.stdout.write("\033[?25h")
+            print("Exiting")
+
+
 if __name__ == "__main__":
     os.system('cls' if os.name == 'nt' else 'clear')
-    
+
     moldura(1, 1, 10, 142, "Título da Janela")
-    
+
     moldura(11,5,15,20, 'Widgets', shadow=True)
 
+    time.sleep(.5)
+
+    # Marquee
+    animacao = marquee()
+    animacao.data = "Widgets "
+    animacao.width = 5
+    animacao.linha = 12
+    animacao.coluna = 6
+
+    sys.stdout.flush()
+    animacao.animate()
+
+    # animacao2 = marquee()
+    # animacao2.data = "Título de Janela "
+    # animacao2.width = 100
+    # animacao2.linha = 2
+    # animacao2.coluna = 2
+
+    # animacao2.animate()
+    
+    # print("\033[6n")
+    # sys.stdout.write("\033[6n")
 
     # TesteString = """
     # ▀	▁	▂	▃	▄	▅	▆	▇	█	▉	▊	▋	▌	▍	▎	▏
