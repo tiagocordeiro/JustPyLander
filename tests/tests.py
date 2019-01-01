@@ -7,6 +7,11 @@ def setup_function(function):
     print("setting up %s" % function)
 
 
+def test_change_terminal_size(capsys):
+    with capsys.disabled():
+        sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=24, cols=80))
+
+
 def test_saida_terminal(capsys):  # or use "capfd" for fd-level
     print("hello")
     sys.stderr.write("world\n")
@@ -36,4 +41,4 @@ def test_moldura_simples(capsys):
 
 def test_get_terminal_size():
     tamanho_terminal = get_terminal_size()
-    assert tamanho_terminal == ''
+    assert tamanho_terminal == ('24', '80')
