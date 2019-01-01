@@ -16,7 +16,7 @@ def moldura(li, ci, lf, cf, titulo='', shadow=False):
         shadow: Sombra
 
     Returns:
-        Retorna uma moldura.
+        Imprime uma moldura.
 
     """
     colunas = cf - ci
