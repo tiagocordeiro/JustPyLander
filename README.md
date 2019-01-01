@@ -3,7 +3,7 @@
 ### Jogo simples desenvolvido em Python #JustPython ;-)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/tiagocordeiro/pybling/blob/master/LICENSE)
 
-[![asciicast](https://asciinema.org/a/QUU1nDHOYoEbs1cgtM0Qa5WE6.svg)](https://asciinema.org/a/QUU1nDHOYoEbs1cgtM0Qa5WE6){:target="_blank"}
+[![asciicast](https://asciinema.org/a/QUU1nDHOYoEbs1cgtM0Qa5WE6.svg)](https://asciinema.org/a/QUU1nDHOYoEbs1cgtM0Qa5WE6)
 
 ## Como rodar o projeto?
 
