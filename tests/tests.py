@@ -1,7 +1,6 @@
 import sys
 
 from utils.termdraw import moldura
-from .mocks import moldura_widget
 
 
 def setup_function(function):
@@ -24,9 +23,12 @@ def test_moldura_simples(capsys):
     out, err = capsys.readouterr()
 
     ## Mock stdout builder ;)
-    # f = open("mock_moldura_simples.txt", "w+")
-    # f.write(out)
-    # f.close()
+    f = open("tests/mocks/mock_moldura_simples.txt", "w+")
+    f.write(out)
+    f.close()
 
-    assert out == moldura_widget
+    fread = open("tests/mocks/mock_moldura_simples.txt", "r")
+    mock_moldura_simples = fread.read()
+
+    assert out == mock_moldura_simples
     assert err == ''
