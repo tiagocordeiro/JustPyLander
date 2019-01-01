@@ -22,7 +22,7 @@ def test_moldura_simples(capsys):
     moldura(2, 1, 8, 15, 'Widgets', shadow=True)
     out, err = capsys.readouterr()
 
-    ## Mock stdout builder ;)
+    # Mock stdout builder ;)
     f = open("tests/mocks/mock_moldura_simples.txt", "w+")
     f.write(out)
     f.close()
