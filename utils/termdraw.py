@@ -59,6 +59,11 @@ def go_last_row():
     print("\033[" + str(int(term_rows) - 1) + ";0H ")
 
 
+def get_terminal_size():
+    term_rows, term_columns = os.popen('stty size', 'r').read().split()
+    return term_rows, term_columns
+
+
 class Marquee:
     def __init__(self):
         self.data = ""

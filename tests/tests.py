@@ -1,6 +1,6 @@
 import sys
 
-from utils.termdraw import moldura
+from utils.termdraw import moldura, get_terminal_size
 
 
 def setup_function(function):
@@ -32,3 +32,8 @@ def test_moldura_simples(capsys):
 
     assert out == mock_moldura_simples
     assert err == ''
+
+
+def test_get_terminal_size():
+    tamanho_terminal = get_terminal_size()
+    assert tamanho_terminal == ''
