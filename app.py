@@ -1,9 +1,8 @@
 import os
 import sys
-import time
 from random import randint
-from utils.termdraw import getch, moldura
 
+from utils.termdraw import getch, moldura
 
 os.system('cls' if os.name == 'nt' else 'clear')
 term_rows, term_columns = os.popen('stty size', 'r').read().split()
@@ -34,9 +33,10 @@ ____^/\___^--____/\____O______________/\/\---/\___________---______________^--__
 modulo = "▟▙"
 base = "▀▀"
 
+
 def intro():
     os.system('cls' if os.name == 'nt' else 'clear')
-    moldura(6,28,17,57, 'JustPyLander', shadow=True)
+    moldura(6, 28, 17, 57, 'JustPyLander', shadow=True)
     sys.stdout.write(f"\033[9;37HInstruções")
     sys.stdout.write(f"\033[11;35H(a) - Esquerda")
     sys.stdout.write(f"\033[12;35H(d) - Direita")
@@ -50,7 +50,7 @@ def intro():
 
 
 def sair():
-    moldura(9,30,14,55, 'Abandonar a nave', shadow=True)
+    moldura(9, 30, 14, 55, 'Abandonar a nave', shadow=True)
     sys.stdout.write(f"\033[12;36HDeseja sair?")
     sys.stdout.write(f"\033[13;40H(s/n)")
     sys.stdout.write("\033[?25l")
@@ -120,12 +120,12 @@ def main():
             sair()
 
     if posicao_descida == 23 and base_local == coluna:
-        moldura(9,30,14,55, 'bela aterrissagem', shadow=True)
+        moldura(9, 30, 14, 55, 'bela aterrissagem', shadow=True)
         jogar_novamente()
     else:
-        moldura(9,30,14,55, 'você explodiu', shadow=True)
+        moldura(9, 30, 14, 55, 'você explodiu', shadow=True)
         jogar_novamente()
-        
+
     sys.stdout.flush()
 
 
