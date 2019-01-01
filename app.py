@@ -46,6 +46,8 @@ def intro():
     sys.stdout.write("\033[?25l")
     sys.stdout.flush()
 
+    getch()
+
 
 def sair():
     moldura(9, 30, 14, 55, 'Abandonar a nave', shadow=True)
