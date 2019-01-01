@@ -4,7 +4,7 @@ python:
 install:
   - pip install -r requirements-dev.txt
 script:
-#  - flake8
+  - flake8
 #  - pycodestyle pybling/
 #  - pyflakes pybling/
 #  - python -m doctest README.md -v

@@ -102,10 +102,10 @@ screen."""
 
 class _GetchUnix:
     def __init__(self):
-        import tty, sys
+        import tty, sys  # noqa: F401,E401
 
     def __call__(self):
-        import sys, tty, termios
+        import sys, tty, termios  # noqa: E401
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:
@@ -118,7 +118,7 @@ class _GetchUnix:
 
 class _GetchWindows:
     def __init__(self):
-        import msvcrt
+        import msvcrt  # noqa: F401
 
     def __call__(self):
         import msvcrt

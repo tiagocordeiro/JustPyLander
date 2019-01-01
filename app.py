@@ -28,7 +28,7 @@ cenario = """                .                                            .
 ____^/\___^--____/\____O______________/\/\---/\___________---______________^--__
    /\^   ^  ^    ^                  ^^ ^  '\ ^          ^       ---             
          --           -            --  -      -         ---  __    ^     --  __ 
-   --  __                      ___--  ^  ^                         --  __       """
+   --  __                      ___--  ^  ^                         --  __       """  # noqa: W605,W291
 
 modulo = "▟▙"
 base = "▀▀"
@@ -45,8 +45,6 @@ def intro():
     sys.stdout.write(f"\033[16;30HTecle algo para continuar")
     sys.stdout.write("\033[?25l")
     sys.stdout.flush()
-
-    answer = getch()
 
 
 def sair():
