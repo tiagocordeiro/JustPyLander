@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.6.6"
+install:
+  - pip install -r requirements-dev.txt
+script:
+#  - flake8
+#  - pycodestyle pybling/
+#  - pyflakes pybling/
+#  - python -m doctest README.md -v
+  - pytest tests/tests.py -s -vv
+after_success:
+#  - codecov
