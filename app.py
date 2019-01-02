@@ -124,6 +124,6 @@ def main():
 
 
 if __name__ == "__main__":
-    intro()
-    getch()
-    main()
+    intro()  # Mostra introdução
+    getch()  # Aguarda interação
+    main()   # Chama a função principal

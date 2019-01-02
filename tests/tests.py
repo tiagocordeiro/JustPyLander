@@ -37,7 +37,7 @@ def test_moldura_simples(capsys):
 
 def test_get_terminal_size():
     tamanho_terminal = get_terminal_size()
-    print("Tamano do terminal: ", tamanho_terminal)
+    print("Tamanho do terminal: ", tamanho_terminal)
     assert tamanho_terminal is not None
 
 
