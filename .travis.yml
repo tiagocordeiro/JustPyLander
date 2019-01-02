@@ -2,7 +2,7 @@ language: python
 python:
   - "3.6.6"
 install:
-  - pip install -r requirements-dev.txt
+  - pip install -r requirements-dev.txt codecov
 script:
   - flake8
 #  - pycodestyle pybling/
@@ -10,4 +10,4 @@ script:
 #  - python -m doctest README.md -v
   - pytest --cov=. tests/tests.py -s -vv
 after_success:
-#  - codecov
+  - codecov
