@@ -101,7 +101,7 @@ def main():
     sys.stdout.write(f"\033[;{base_local}H{base}")
     sys.stdout.write("\033[?25l")
     posicao_descida = -1
-    for _ in range(int(term_rows) - 1):
+    for _ in range(24):
         os.system('cls' if os.name == 'nt' else 'clear')
         sys.stdout.write(f"\033[1;1H{cenario}")
         sys.stdout.write(f"\033[{_};{coluna}H{modulo}")

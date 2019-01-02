@@ -51,8 +51,6 @@ def moldura(li, ci, lf, cf, titulo='', shadow=False):
 
         print("\033[" + str(lateral_sombra + 1) + ";" + str(int(ci + 1)) + "H" + "█" * colunas)
 
-    go_last_row()
-
 
 def go_last_row():
     term_rows, term_columns = os.popen('stty size', 'r').read().split()
