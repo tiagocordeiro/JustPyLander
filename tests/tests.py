@@ -1,6 +1,7 @@
 import sys
 
 from utils.termdraw import moldura, get_terminal_size
+from app import intro
 
 
 def setup_function(function):
@@ -48,3 +49,19 @@ def test_terminal_col_size():
 def test_terminal_lin_size():
     tamanho_terminal = get_terminal_size()
     assert int(tamanho_terminal[0]) >= 24
+
+
+def test_game_intro(capsys):
+    intro()
+    out, err = capsys.readouterr()
+
+    # Mock stdout builder ;)
+    f = open("tests/mocks/mock_game_intro.txt", "w+")
+    f.write(out)
+    f.close()
+
+    fread = open("tests/mocks/mock_game_intro.txt", "r")
+    mock_game_intro = fread.read()
+
+    assert err == ''
+    assert out == mock_game_intro
