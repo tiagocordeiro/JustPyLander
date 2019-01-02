@@ -35,7 +35,6 @@ base = "▀▀"
 
 
 def intro():
-    os.system('cls' if os.name == 'nt' else 'clear')
     moldura(6, 28, 17, 57, 'JustPyLander', shadow=True)
     sys.stdout.write(f"\033[9;37HInstruções")
     sys.stdout.write(f"\033[11;35H(a) - Esquerda")
@@ -66,9 +65,6 @@ def sair():
         exit()
     else:
         pass
-        # main.coluna = randint(5, 75)
-        # main.base_local = randint(5, 75)
-        # main()
 
 
 def jogar_novamente():
