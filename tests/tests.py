@@ -1,7 +1,9 @@
 import sys
 
-from utils.termdraw import moldura, get_terminal_size
+import pytest
+
 from app import intro
+from utils.termdraw import moldura, get_terminal_size, go_last_row, Marquee
 
 
 def setup_function(function):
@@ -49,6 +51,30 @@ def test_terminal_col_size():
 def test_terminal_lin_size():
     tamanho_terminal = get_terminal_size()
     assert int(tamanho_terminal[0]) >= 24
+
+
+def test_moldura_simples_muito_grande():
+    colunas_terminal = int(get_terminal_size()[1])
+    colunas_moldura = colunas_terminal + 10
+    with pytest.raises(Exception) as excinfo:
+        moldura(2, 1, 8, colunas_moldura, 'Widgets', shadow=True)
+    assert str(excinfo.value) == f'A coluna final <cf>, não pode ser maior que: {colunas_terminal}'
+
+
+def test_go_last_row(capsys):
+    go_last_row()
+    out, err = capsys.readouterr()
+    assert out == "\x1b[40;0H \n"
+    assert err == ""
+
+
+def test_marquee():
+    animacao = Marquee()
+    animacao.data = "Widgets "
+    animacao.width = 5
+    animacao.linha = 12
+    animacao.coluna = 6
+    assert animacao.data == "Widgets "
 
 
 def test_game_intro(capsys):
