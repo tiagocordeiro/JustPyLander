@@ -64,7 +64,16 @@ def test_moldura_simples_muito_grande():
 def test_go_last_row(capsys):
     go_last_row()
     out, err = capsys.readouterr()
-    assert out == "\x1b[40;0H \n"
+
+    # Mock stdout builder ;)
+    f = open("tests/mocks/mock_last_row.txt", "w+")
+    f.write(out)
+    f.close()
+
+    fread = open("tests/mocks/mock_last_row.txt", "r")
+    mock_last_row = fread.read()
+
+    assert out == mock_last_row
     assert err == ""
 
 
