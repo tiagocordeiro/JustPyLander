@@ -8,6 +8,6 @@ script:
 #  - pycodestyle pybling/
 #  - pyflakes pybling/
 #  - python -m doctest README.md -v
-  - pytest tests/tests.py -s -vv
+  - pytest --cov=. tests/tests.py -s -vv
 after_success:
 #  - codecov
