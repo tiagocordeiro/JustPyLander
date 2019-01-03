@@ -1,102 +1,85 @@
-import sys
-
-import pytest
+from unittest import TestCase
+from unittest.mock import patch
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 from app import intro
 from utils.termdraw import moldura, get_terminal_size, go_last_row, Marquee
 
 
-def setup_function(function):
-    print("setting up %s" % function)
+class TestGame(TestCase):
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_moldura_simples(self, mock_stdout):
+        moldura(2, 1, 8, 15, 'Widgets', shadow=True)
+        out = mock_stdout.getvalue()
+        f = open("tests/mocks/mock_moldura_simples.txt", "w+")
+        f.write(out)
+        f.close()
 
+        fread = open("tests/mocks/mock_moldura_simples.txt", "r")
+        mock_moldura_simples = fread.read()
 
-def test_saida_terminal(capsys):  # or use "capfd" for fd-level
-    print("hello")
-    sys.stderr.write("world\n")
-    out, err = capsys.readouterr()
-    assert out == "hello\n"
-    assert err == "world\n"
-    print("next")
-    out, err = capsys.readouterr()
-    assert out == "next\n"
+        self.assertEqual(out, mock_moldura_simples)
 
+    def test_get_terminal_size(self):
+        tamanho_terminal = get_terminal_size()
+        self.assertIsNotNone(tamanho_terminal)
 
-def test_moldura_simples(capsys):
-    moldura(2, 1, 8, 15, 'Widgets', shadow=True)
-    out, err = capsys.readouterr()
+    def test_terminal_col_size(self):
+        tamanho_terminal = get_terminal_size()
+        self.assertGreaterEqual(int(tamanho_terminal[1]), 80)
 
-    # Mock stdout builder ;)
-    f = open("tests/mocks/mock_moldura_simples.txt", "w+")
-    f.write(out)
-    f.close()
+    def test_terminal_lin_size(self):
+        tamanho_terminal = get_terminal_size()
+        self.assertGreaterEqual(int(tamanho_terminal[0]), 24)
 
-    fread = open("tests/mocks/mock_moldura_simples.txt", "r")
-    mock_moldura_simples = fread.read()
+    def test_moldura_simples_muito_grande(self):
+        colunas_terminal = int(get_terminal_size()[1])
+        colunas_moldura = colunas_terminal + 10
+        with self.assertRaises(Exception) as excinfo:
+            moldura(2, 1, 8, colunas_moldura, 'Widgets', shadow=True)
 
-    assert out == mock_moldura_simples
-    assert err == ''
+        self.assertEqual(
+            str(excinfo.exception),
+            f'A coluna final <cf>, não pode ser maior que: {colunas_terminal}'
+        )
 
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_go_last_row(self, mock_stdout):
+        go_last_row()
+        out = mock_stdout.getvalue()
 
-def test_get_terminal_size():
-    tamanho_terminal = get_terminal_size()
-    print("Tamanho do terminal: ", tamanho_terminal)
-    assert tamanho_terminal is not None
+        # Mock stdout builder ;)
+        f = open("tests/mocks/mock_last_row.txt", "w+")
+        f.write(out)
+        f.close()
 
+        fread = open("tests/mocks/mock_last_row.txt", "r")
+        mock_last_row = fread.read()
 
-def test_terminal_col_size():
-    tamanho_terminal = get_terminal_size()
-    assert int(tamanho_terminal[1]) >= 80
+        self.assertEqual(out, mock_last_row)
 
+    def test_marquee(self):
+        animacao = Marquee()
+        animacao.data = "Widgets "
+        animacao.width = 5
+        animacao.linha = 12
+        animacao.coluna = 6
+        self.assertEqual(animacao.data, "Widgets ")
 
-def test_terminal_lin_size():
-    tamanho_terminal = get_terminal_size()
-    assert int(tamanho_terminal[0]) >= 24
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_game_intro(self, mock_stdout):
+        intro()
+        out = mock_stdout.getvalue()
 
+        # Mock stdout builder ;)
+        f = open("tests/mocks/mock_game_intro.txt", "w+")
+        f.write(out)
+        f.close()
 
-def test_moldura_simples_muito_grande():
-    colunas_terminal = int(get_terminal_size()[1])
-    colunas_moldura = colunas_terminal + 10
-    with pytest.raises(Exception) as excinfo:
-        moldura(2, 1, 8, colunas_moldura, 'Widgets', shadow=True)
-    assert str(excinfo.value) == f'A coluna final <cf>, não pode ser maior que: {colunas_terminal}'
+        fread = open("tests/mocks/mock_game_intro.txt", "r")
+        mock_game_intro = fread.read()
 
-
-def test_go_last_row(capsys):
-    go_last_row()
-    out, err = capsys.readouterr()
-
-    # Mock stdout builder ;)
-    f = open("tests/mocks/mock_last_row.txt", "w+")
-    f.write(out)
-    f.close()
-
-    fread = open("tests/mocks/mock_last_row.txt", "r")
-    mock_last_row = fread.read()
-
-    assert out == mock_last_row
-    assert err == ""
-
-
-def test_marquee():
-    animacao = Marquee()
-    animacao.data = "Widgets "
-    animacao.width = 5
-    animacao.linha = 12
-    animacao.coluna = 6
-    assert animacao.data == "Widgets "
-
-
-def test_game_intro(capsys):
-    intro()
-    out, err = capsys.readouterr()
-
-    # Mock stdout builder ;)
-    f = open("tests/mocks/mock_game_intro.txt", "w+")
-    f.write(out)
-    f.close()
-
-    fread = open("tests/mocks/mock_game_intro.txt", "r")
-    mock_game_intro = fread.read()
-
-    assert err == ''
-    assert out == mock_game_intro
+        self.assertEqual(out, mock_game_intro)
